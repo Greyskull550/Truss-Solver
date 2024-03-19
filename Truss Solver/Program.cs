@@ -4,18 +4,20 @@ using System.Threading.Channels;
 using Truss_Solver;
 using Spectre.Console;
 using System.Diagnostics.Tracing;
+var green = "[#11634F]";
+var gold = "[#F9CF2F]";
 
 var running = true;
 Console.WriteLine("*************************************************************************************");
 Console.WriteLine("#######                                 #####                                     \r\n   #    #####  #    #  ####   ####     #     #  ####  #      #    # ###### #####  \r\n   #    #    # #    # #      #         #       #    # #      #    # #      #    # \r\n   #    #    # #    #  ####   ####      #####  #    # #      #    # #####  #    # \r\n   #    #####  #    #      #      #          # #    # #      #    # #      #####  \r\n   #    #   #  #    # #    # #    #    #     # #    # #       #  #  #      #   #  \r\n   #    #    #  ####   ####   ####      #####   ####  ######   ##   ###### #    # ");
 Console.WriteLine("*************************************************************************************");
-Console.WriteLine("Arra Solver V.0.1" );
+AnsiConsole.MarkupLine($"{gold}Arra Solver V.0.1 [/]");
 
 while (running)
 {
     var choice = AnsiConsole.Prompt(
      new SelectionPrompt<string>()
-         .Title("[green]Select a Function[/]?")
+         .Title("[#11634F]Select a Function[/]?")
          .PageSize(10)
          .MoreChoicesText("[grey](Move up and down to reveal more fruits)[/]")
          .AddChoices(new[] {
@@ -26,81 +28,77 @@ while (running)
     if (choice == "5 Member")
     {
         // get variables 
-        AnsiConsole.Markup("[green]Enter force on Top Point: [/]");
+        AnsiConsole.Markup($"{gold}Enter force on Top Point: [/]");
         double topPoint = Convert.ToDouble(Console.ReadLine());
 
-        AnsiConsole.Markup("[green]Enter Legnth AB: [/]");
+        AnsiConsole.Markup($"{gold}Enter Legnth AB: [/]");
         double legnthAB = Convert.ToDouble(Console.ReadLine());
 
-        AnsiConsole.Markup("[green]Enter Legnth AC: [/]");
+        AnsiConsole.Markup($"{gold}Enter Legnth AC: [/]");
         double legnthAC = Convert.ToDouble(Console.ReadLine());
 
-        AnsiConsole.Markup("[green]Enter Legnth BC:[/] ");
+        AnsiConsole.Markup($"{gold}Enter Legnth BC:[/] ");
         double legnthBC = Convert.ToDouble(Console.ReadLine());
 
-         AnsiConsole.Markup("[green]Enter Legnth BD: [/]");
+         AnsiConsole.Markup($"{gold}Enter Legnth BD: [/]");
         double legnthBD = Convert.ToDouble(Console.ReadLine());
 
-        AnsiConsole.Markup("[green]Enter Legnth CD: [/]");
+        AnsiConsole.Markup($"{gold}Enter Legnth CD: [/]");
         double legnthCD = Convert.ToDouble(Console.ReadLine());
 
 
-        AnsiConsole.Markup("[green]Enter Angle a:  [/]");
+        AnsiConsole.Markup($"{gold}Enter Angle a:  [/]");
         double angleA = Convert.ToDouble(Console.ReadLine());
         double angleARad = RadConvert.ConvertToRad(angleA);
-        AnsiConsole.Markup("[green]Enter Angle b: [/] ");
+        AnsiConsole.Markup($"{gold}Enter Angle b: [/] ");
         double angleB = Convert.ToDouble(Console.ReadLine());
         double angleBRad = RadConvert.ConvertToRad(angleB);
-        AnsiConsole.Markup("[green]Enter Angle c:  [/]");
+        AnsiConsole.Markup($"{gold}Enter Angle c:  [/]");
         double angleC = Convert.ToDouble(Console.ReadLine());
-        AnsiConsole.Markup("[green]Enter Angle d:  [/]");
+        AnsiConsole.Markup($"{gold}Enter Angle d:  [/]");
         double angleD = Convert.ToDouble(Console.ReadLine());
 
-        AnsiConsole.Markup("Solving for External Forces");
-        AnsiConsole.Markup("FA,X = 0 Lb ");
-        AnsiConsole.Markup($"FAy(0)+(-{topPoint})({legnthAC})+FDy({legnthAC + legnthCD})");
+        AnsiConsole.MarkupLine($"{green}Solving for External Forces[/]");
+        AnsiConsole.MarkupLine($"{gold}FA,X = 0 Lb [/]");
+        AnsiConsole.MarkupLine($"{green}FAy(0)+(-{topPoint})({legnthAC})+FDy({legnthAC + legnthCD})[/]");
+       
         double fDY = (topPoint * legnthAC) / (legnthAC + legnthCD);
         fDY = Math.Round(fDY, 1);
         double fAY = topPoint - fDY;
-        
-        AnsiConsole.Markup($"FD,Y = {fDY} Lb");//yellow
-     
-        Console.WriteLine($"FA,Y + FD,Y = {topPoint}");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FA,Y= {fAY} Lb\n");
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("Solving Internal Forces\n");
+        AnsiConsole.MarkupLine($"{gold} FD,Y = {fDY} Lb [/]");
 
-        Console.WriteLine("Fbd pt.A");
-        Console.WriteLine($"{fAY} + FA,B * Sin({angleA}) = 0");
+        AnsiConsole.MarkupLine($"{green}FA,Y + FD,Y = {topPoint}[/]");
+
+        AnsiConsole.MarkupLine($"{gold} FD,Y = b\n[/]");
+        AnsiConsole.MarkupLine($"{green}Solving Internal Forces\n[/]");
+
+        AnsiConsole.MarkupLine($"{green}Fbd pt.A[/]");
+        AnsiConsole.MarkupLine($"[darkcyan]{fAY} + FA,B * Sin({angleA}) = 0[/]");
         double fAB = (fAY * -1) / Math.Sin(angleARad);
         fAB = Math.Round(fAB, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FAB = {fAB} Lb)\n");
-        Console.ForegroundColor = ConsoleColor.White;
+        AnsiConsole.MarkupLine($"{gold}FAB = {fAB} Lb)\n[/]");
 
         // Calculate FAC
         double fAC = -fAB * Math.Cos(angleARad);
         //double fAC = fAY *  Math.Cos(angleA * Math.PI / 180);
         fAC = Math.Round(fAC, 1);
 
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FAC = {fAC} Lb)");
-        Console.ForegroundColor = ConsoleColor.White;
+        AnsiConsole.MarkupLine($"{gold}FAC = {fAC} Lb)[/]\n");
 
-        Console.WriteLine("FBD pt C");
+       AnsiConsole.MarkupLine($"{green}FBD pt C[/]");
         double fCD = fAC;
         double fCB = 0;
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FCD = {fCD}");
-        Console.WriteLine($"FCB = {fCB}");
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("FBD pt D");
+            
+        AnsiConsole.MarkupLine($"{gold}FCD = {fCD}[/]");
+        AnsiConsole.MarkupLine($"{gold}FCB = {fCB}[/]");
+        
+        AnsiConsole.MarkupLine($"{green}FBD pt D[/]");
+
         double fDB = -fCD / Math.Cos(angleBRad);
         fDB = Math.Round(fDB, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FDB = {fDB}");
-        Console.ForegroundColor = ConsoleColor.White;
+       
+        AnsiConsole.MarkupLine($"{gold}FDB = {fDB} [/]");
+      
 
     }
     else if (choice == "9 Member")              
@@ -109,146 +107,144 @@ while (running)
         // get variables  
         //Console.Write("Enter force on Top Point: ");
         //  double topPoint = Convert.ToDouble(Console.ReadLine());
-        Console.Write("Enter Force on FFY \t");
+        AnsiConsole.Markup($"{gold}Enter Force on FFY \t[/]");
         double FFY = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Enter Force on FFE \t");
+        AnsiConsole.Markup($"{gold}Enter Force on FFE \t[/]");
         double FFE = Convert.ToDouble(Console.ReadLine());
 
         double topPoints = FFY + FFE;
 
-        Console.Write("Enter legnthAB \t");
+        AnsiConsole.Markup($"{gold}Enter legnthAB \t[/]");
         double legnthAB = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Enter legnthAF \t");
+        AnsiConsole.Markup($"{gold} Enter legnthAF \t[/]");
         double legnthAF = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Enter legnthBC \t");
+        AnsiConsole.Markup($"{gold} Enter legnthBC \t[/]");
         double legnthBC = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Enter legnthFB \t");
+        AnsiConsole.Markup($"{gold} Enter legnthFB \t[/]");
         double legnthFB = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Enter legnthCD \t");
+        AnsiConsole.Markup($"   {gold} Enter legnthCD \t[/]");
         double legnthCD = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Enter legnthBE \t");
+        AnsiConsole.Markup($"{gold} Enter legnthBE \t[/]");
         double legnthBE = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Enter legnthED \t");
+        AnsiConsole.Markup($"{gold} Enter legnthED \t[/]");
         double legnthED = Convert.ToDouble(Console.ReadLine());
 
-        Console.Write("Enter legnthFE \t");
+        AnsiConsole.Markup($"{gold} Enter legnthFE \t[/]");
         double legnthFE = Convert.ToDouble(Console.ReadLine());
 
 
-
-        Console.Write("Enter angleA \t");
+        AnsiConsole.Markup($"{gold} Enter angleA \t[/]");
         double angleA = Convert.ToDouble(Console.ReadLine());
         double angleARad = RadConvert.ConvertToRad(angleA);
 
-        Console.Write("Enter angleB \t");
+        AnsiConsole.Markup($"{gold} Enter angleB \t[/]");
         double angleB = Convert.ToDouble(Console.ReadLine());
         double angleBRad = RadConvert.ConvertToRad(angleB);
 
         double angleBCalc = (90 + angleB) * -1;
-        Console.WriteLine(angleBCalc);
+                    
         double angleBCalcRad = RadConvert.ConvertToRad(angleBCalc);
 
 
-        Console.Write("Enter angleC \t");
+        AnsiConsole.Markup($"{gold} Enter angleC \t[/]");
         double angleC = Convert.ToDouble(Console.ReadLine());
         double angleCRad = RadConvert.ConvertToRad(angleC);
 
 
-        Console.Write("Enter angleD \t");
+        AnsiConsole.Markup($"{gold} Enter angleD \t[/]");
         double angleD = Convert.ToDouble(Console.ReadLine());
 
 
-        Console.Write("Enter angleE \t");
+        AnsiConsole.Markup($"{gold} Enter angleE \t[/]");
         double angleE = Convert.ToDouble(Console.ReadLine());
 
 
-        Console.Write("Enter angleF \t");
+        AnsiConsole.Markup($"{gold} Enter angleF \t[/]");
         double angleF = Convert.ToDouble(Console.ReadLine());
         double angleFRad = RadConvert.ConvertToRad(angleF);
 
-        Console.WriteLine("calculating please be patent ......... ");
+        AnsiConsole.MarkupLine($"{green}calculating please be patent ......... [/]");
         Thread.Sleep(5000);
 
 
-        Console.WriteLine("Solving for External Forces");
-        Console.WriteLine("FA,X = 0 Lb ");
-        Console.WriteLine($"FAy(0)+(-{FFY})({legnthAB})+({FFE})({legnthAB + legnthBC})+(FDY)({legnthAB + legnthBC + legnthCD})= 0");
+        AnsiConsole.MarkupLine ($"{green}Solving for External Forces[/]");
+        AnsiConsole.MarkupLine($"FA,X = 0 Lb [/]");
+        AnsiConsole.MarkupLine($"FAy(0)+(-{FFY})({legnthAB})+({FFE})({legnthAB + legnthBC})+(FDY)({legnthAB + legnthBC + legnthCD})= 0");
         double fDY = ((FFY * legnthAB) + (FFE * (legnthAB + legnthBC))) / (legnthAB + legnthBC + legnthCD);
         fDY = Math.Round(fDY, 1);
         double fAY = topPoints - fDY;
 
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FD,Y = {fDY} Lb");
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine($"FA,Y + FD,Y = {topPoints}");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FA,Y= {fAY} Lb\n");
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.WriteLine("Solving Internal Forces\n");
+     
+        AnsiConsole.MarkupLine($"{gold}FD,Y = {fDY} Lb[/]");//yellow
+
+        AnsiConsole.MarkupLine($"{gold}FA,Y + FD,Y = {topPoints}[/]");
+
+        AnsiConsole.MarkupLine($"{gold} FA,Y= {fAY} Lb\n[/]");
+  
+        AnsiConsole.MarkupLine($"{green}Solving Internal Forces\n[/]");
 
         //Console.WriteLine("Fbd pt.A");
         //Console.WriteLine($"{fAY} + FA,B * Sin({angleA}) = 0");
         double FAF = (fAY * -1) / Math.Sin(angleARad);
         FAF = Math.Round(FAF, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FAF = {FAF} Lb)\n");
-        Console.ForegroundColor = ConsoleColor.White;
+    
+        AnsiConsole.MarkupLine($"{gold}FAF = {FAF} Lb)\n[/]");
+      
 
         // Calculate FAB
         double FAB = -FAF * Math.Cos(angleARad);
 
         FAB = Math.Round(FAB, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FAB = {FAB} Lb)\n");
-        Console.ForegroundColor = ConsoleColor.White;
+
+        AnsiConsole.MarkupLine($"{gold}FAB = {FAB} Lb)\n[/]");
+
 
         //Console.WriteLine("fbd pt.F");
         double FFe = FAF * Math.Sin(angleARad);
         FFe = Math.Round(FFe, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FED = {FFe} Lb)\n");
-        Console.ForegroundColor = ConsoleColor.White;
+
+        AnsiConsole.MarkupLine($"{gold}FED = {FFe} Lb)\n[/]");
+
 
         double FFB = (-FFY) + (FAF * Math.Sin(angleBCalcRad));
         FFB = Math.Round(FFB, 1);
 
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FFB = {FFB} Lb)\n");
-        Console.ForegroundColor = ConsoleColor.White;
 
+        AnsiConsole.MarkupLine($"{gold}FFB = {FFB} Lb)\n[/]");
+     
 
         //calcuate fbe
         double FBE = -FFB / Math.Sin(angleCRad);
         FBE = Math.Round(FBE, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FBE = {FBE} Lb)\n");
-        Console.ForegroundColor = ConsoleColor.White;
+
+        AnsiConsole.MarkupLine($"{gold}FBE = {FBE} Lb)\n[/]");
+        
 
         double FED = (fDY * -1) / Math.Sin(angleFRad);
         FED = Math.Round(FED, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FED = {FED} Lb)\n");
-        Console.ForegroundColor = ConsoleColor.White;
+
+        AnsiConsole.MarkupLine($"{gold}FED = {FED} Lb)\n[/]");
+      
 
         // Calculate FCD
         double fCD = -FED * Math.Cos(angleFRad);
         fCD = Math.Round(fCD, 1);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FCD = {fCD} Lb)");
-        Console.ForegroundColor = ConsoleColor.White;
+
+        AnsiConsole.MarkupLine($"{gold}FCD = {fCD} Lb)[/]");
+ 
 
         //FBC 
         double FBC = fCD;
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"FBC = {FBC} Lb)");
-        Console.ForegroundColor = ConsoleColor.White;
+
+        AnsiConsole.MarkupLine($"{gold}FBC = {FBC} Lb)[/]");
+
 
     }
 
