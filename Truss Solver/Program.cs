@@ -14,12 +14,12 @@ Console.WriteLine("*************************************************************
 AnsiConsole.MarkupLine($"{gold}Arra Solver V.0.1 [/]");
 
 while (running)
-{
+{  
     var choice = AnsiConsole.Prompt(
      new SelectionPrompt<string>()
          .Title("[#11634F]Select a Function[/]?")
          .PageSize(10)
-         .MoreChoicesText("[grey](Move up and down to reveal more fruits)[/]")
+         .MoreChoicesText("[grey](this is accualy never going to be seen idk why this code is in here but it makes the app work i will figure out how to use this when i want to)[/]")
          .AddChoices(new[] {
             "5 Member", "9 Member", "Angle", "Credits","Exit",
 
@@ -28,35 +28,32 @@ while (running)
     if (choice == "5 Member")
     {
         // get variables 
-        AnsiConsole.Markup($"{gold}Enter force on Top Point: [/]");
-        double topPoint = Convert.ToDouble(Console.ReadLine());
+                // I am using a Spectre function that will prompt for input and valadate the responce. 
+        
+        var topPoint = AnsiConsole.Ask<double>($"{gold}Enter force on Top Point:[/]");
 
-        AnsiConsole.Markup($"{gold}Enter Legnth AB: [/]");
-        double legnthAB = Convert.ToDouble(Console.ReadLine());
+        var legnthAB = AnsiConsole.Ask<double>($"{gold}Enter Legnth AB: [/]");
 
-        AnsiConsole.Markup($"{gold}Enter Legnth AC: [/]");
-        double legnthAC = Convert.ToDouble(Console.ReadLine());
+        var legnthAC = AnsiConsole.Ask<double>($"{gold}Enter Legnth AC: [/]");
 
-        AnsiConsole.Markup($"{gold}Enter Legnth BC:[/] ");
-        double legnthBC = Convert.ToDouble(Console.ReadLine());
+        var legnthBC = AnsiConsole.Ask<double>($"{gold}Enter Legnth BC:[/]");
 
-         AnsiConsole.Markup($"{gold}Enter Legnth BD: [/]");
-        double legnthBD = Convert.ToDouble(Console.ReadLine());
+        var legnthBD = AnsiConsole.Ask<double>($"{gold}Enter Legnth BD: [/]");
 
-        AnsiConsole.Markup($"{gold}Enter Legnth CD: [/]");
-        double legnthCD = Convert.ToDouble(Console.ReadLine());
-
-
-        AnsiConsole.Markup($"{gold}Enter Angle a:  [/]");
-        double angleA = Convert.ToDouble(Console.ReadLine());
+        var legnthCD = AnsiConsole.Ask<double>($"{gold}Enter Legnth CD: [/]");
+        
+        var angleA = AnsiConsole.Ask<double>($"{gold}Enter Angle a:  [/]");
         double angleARad = RadConvert.ConvertToRad(angleA);
-        AnsiConsole.Markup($"{gold}Enter Angle b: [/] ");
-        double angleB = Convert.ToDouble(Console.ReadLine());
+
+        var angleB = AnsiConsole.Ask<double>($"{gold}Enter Angle b: [/] ");
         double angleBRad = RadConvert.ConvertToRad(angleB);
-        AnsiConsole.Markup($"{gold}Enter Angle c:  [/]");
-        double angleC = Convert.ToDouble(Console.ReadLine());
-        AnsiConsole.Markup($"{gold}Enter Angle d:  [/]");
-        double angleD = Convert.ToDouble(Console.ReadLine());
+
+        var angleC = AnsiConsole.Ask<double>($"{gold}Enter Angle c:  [/]");
+
+        var angleD = AnsiConsole.Ask<double>($"{gold}Enter Angle d:  [/]");
+
+        AnsiConsole.MarkupLine($"{green}calculating please be patent ......... [/]");
+        Thread.Sleep(5000);
 
         AnsiConsole.MarkupLine($"{green}Solving for External Forces[/]");
         AnsiConsole.MarkupLine($"{gold}FA,X = 0 Lb [/]");
@@ -105,69 +102,51 @@ while (running)
     {
 
         // get variables  
-        //Console.Write("Enter force on Top Point: ");
-        //  double topPoint = Convert.ToDouble(Console.ReadLine());
-        AnsiConsole.Markup($"{gold}Enter Force on FFY \t[/]");
-        double FFY = Convert.ToDouble(Console.ReadLine());
+       
+        var FFY = AnsiConsole.Ask<double>($"{gold}Enter Force on FFY \t[/]");
 
-        AnsiConsole.Markup($"{gold}Enter Force on FFE \t[/]");
-        double FFE = Convert.ToDouble(Console.ReadLine());
-
+        var FFE = AnsiConsole.Ask<double>($"{gold}Enter Force on FFE \t[/]");
         double topPoints = FFY + FFE;
 
-        AnsiConsole.Markup($"{gold}Enter legnthAB \t[/]");
-        double legnthAB = Convert.ToDouble(Console.ReadLine());
+        var legnthAB = AnsiConsole.Ask<double>($"{gold}Enter legnthAB \t[/]");
+        
+        var legnthAF = AnsiConsole.Ask<double>($"{gold} Enter legnthAF \t[/]");
+     
+        var legnthBC = AnsiConsole.Ask<double>($"{gold} Enter legnthBC \t[/]");
 
-        AnsiConsole.Markup($"{gold} Enter legnthAF \t[/]");
-        double legnthAF = Convert.ToDouble(Console.ReadLine());
+        var legnthFB = AnsiConsole.Ask<double>($"{gold} Enter legnthFB \t[/]");
+        
+        var legnthCD = AnsiConsole.Ask<double>($"{gold} Enter legnthCD \t[/]");
+        
+        var legnthBE = AnsiConsole.Ask<double>($"{gold} Enter legnthBE \t[/]");
+     
+        var legnthED = AnsiConsole.Ask<double>($"{gold} Enter legnthED \t[/]");
 
-        AnsiConsole.Markup($"{gold} Enter legnthBC \t[/]");
-        double legnthBC = Convert.ToDouble(Console.ReadLine());
-
-        AnsiConsole.Markup($"{gold} Enter legnthFB \t[/]");
-        double legnthFB = Convert.ToDouble(Console.ReadLine());
-
-        AnsiConsole.Markup($"   {gold} Enter legnthCD \t[/]");
-        double legnthCD = Convert.ToDouble(Console.ReadLine());
-
-        AnsiConsole.Markup($"{gold} Enter legnthBE \t[/]");
-        double legnthBE = Convert.ToDouble(Console.ReadLine());
-
-        AnsiConsole.Markup($"{gold} Enter legnthED \t[/]");
-        double legnthED = Convert.ToDouble(Console.ReadLine());
-
-        AnsiConsole.Markup($"{gold} Enter legnthFE \t[/]");
-        double legnthFE = Convert.ToDouble(Console.ReadLine());
+        var legnthFE = AnsiConsole.Ask<double>($"{gold} Enter legnthFE \t[/]");
+       
 
 
-        AnsiConsole.Markup($"{gold} Enter angleA \t[/]");
-        double angleA = Convert.ToDouble(Console.ReadLine());
+        var angleA =  AnsiConsole.Ask<double>($"{gold} Enter angleA \t[/]");
         double angleARad = RadConvert.ConvertToRad(angleA);
 
-        AnsiConsole.Markup($"{gold} Enter angleB \t[/]");
-        double angleB = Convert.ToDouble(Console.ReadLine());
-        double angleBRad = RadConvert.ConvertToRad(angleB);
+        var angleB = AnsiConsole.Ask<double>($"{gold} Enter angleB \t[/]");
 
-        double angleBCalc = (90 + angleB) * -1;
-                    
+        double angleBRad = RadConvert.ConvertToRad(angleB);
+        double angleBCalc = (90 + angleB) * -1;       
         double angleBCalcRad = RadConvert.ConvertToRad(angleBCalc);
 
 
-        AnsiConsole.Markup($"{gold} Enter angleC \t[/]");
-        double angleC = Convert.ToDouble(Console.ReadLine());
+        var angleC = AnsiConsole.Ask<double>($"{gold} Enter angleC \t[/]");
         double angleCRad = RadConvert.ConvertToRad(angleC);
 
 
-        AnsiConsole.Markup($"{gold} Enter angleD \t[/]");
-        double angleD = Convert.ToDouble(Console.ReadLine());
+        var angleD = AnsiConsole.Ask<double>($"{gold} Enter angleD \t[/]");
+       
+        var angleE = AnsiConsole.Ask<double>($"{gold} Enter angleE \t[/]");
+        
 
 
-        AnsiConsole.Markup($"{gold} Enter angleE \t[/]");
-        double angleE = Convert.ToDouble(Console.ReadLine());
-
-
-        AnsiConsole.Markup($"{gold} Enter angleF \t[/]");
-        double angleF = Convert.ToDouble(Console.ReadLine());
+        var angleF = AnsiConsole.Ask<double>($"{gold} Enter angleF \t[/]");
         double angleFRad = RadConvert.ConvertToRad(angleF);
 
         AnsiConsole.MarkupLine($"{green}calculating please be patent ......... [/]");
