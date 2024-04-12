@@ -28,7 +28,7 @@ while (running)
     if (choice1 == "5 Member")
     {
         Console.Clear();
-        AnsiConsole.MarkupLine($"{orange} 5 member truss");
+        AnsiConsole.MarkupLine($"{orange} 5 member truss[/]");
 
         // get variables 
         // I am using a Spectre function that will prompt for input and valadate the responce. 
@@ -105,7 +105,7 @@ while (running)
         .PageSize(10)
         .MoreChoicesText("[grey]()overflow[/]")
         .AddChoices(new[] {
-            "Reprint", " Save to File","Exit",
+            "Reprint","Save","Exit",
 
         }));
 
@@ -114,12 +114,12 @@ while (running)
             var Reprint = true;
             while (Reprint)
             {
-                AnsiConsole.MarkupLine($"Reprinting results");
+                AnsiConsole.MarkupLine($"{green}Reprinting results[/]");
                 AnsiConsole.MarkupLine($"{gold} FD,Y = {fDY} Lb [/]");
-                AnsiConsole.MarkupLine($"{gold} FD,Y = b\n[/]");
-                AnsiConsole.MarkupLine($"{green} Internal Forces\n[/]");
-                AnsiConsole.MarkupLine($"{gold}FAB = {fAB} Lb)\n[/]");
-                AnsiConsole.MarkupLine($"{gold}FAC = {fAC} Lb[/]\n");
+                AnsiConsole.MarkupLine($"{gold}FD,Y = b[/]");
+                AnsiConsole.MarkupLine($"{green} Internal Forces[/]");
+                AnsiConsole.MarkupLine($"{gold}FAB = {fAB} Lb)[/]");
+                AnsiConsole.MarkupLine($"{gold}FAC = {fAC} Lb[/]");
                 AnsiConsole.MarkupLine($"{gold}FCD = {fCD}[/]");
                 AnsiConsole.MarkupLine($"{gold}FCB = {fCB}[/]");
                 AnsiConsole.MarkupLine($"{gold}FDB = {fDB} [/]");
@@ -130,7 +130,7 @@ while (running)
        .PageSize(10)
        .MoreChoicesText("[grey]()overflow[/]")
        .AddChoices(new[] {
-            "Reprint", " Save to File","Exit",
+            "Reprint","Save","Exit",
 
        }));
                 if (choice3 == "Reprint")
@@ -146,9 +146,10 @@ while (running)
 
 
         }
-        else if (choice2 == "Save to File")
+        else if (choice2 == "Save")
         {
-            Console.WriteLine("SAVING TO FILE");
+         
+            AnsiConsole.MarkupLine($"{orange} saved to file[/]");
         }
         else if (choice2 == "Exit")
         {
@@ -160,7 +161,8 @@ while (running)
 
     else if (choice1 == "9 Member")
     {
-
+        Console.Clear();
+        AnsiConsole.MarkupLine($"{orange} 9 member truss[/]");
         // get variables  
 
         var FFY = AnsiConsole.Ask<double>($"{gold}Enter Force on FFY \t[/]");
@@ -214,8 +216,8 @@ while (running)
 
 
         AnsiConsole.MarkupLine($"{green}Solving for External Forces[/]");
-        AnsiConsole.MarkupLine($"FA,X = 0 Lb [/]");
-        AnsiConsole.MarkupLine($"FAy(0)+(-{FFY})({legnthAB})+({FFE})({legnthAB + legnthBC})+(FDY)({legnthAB + legnthBC + legnthCD})= 0");
+        AnsiConsole.MarkupLine($"{gold}FA,X = 0 Lb [/]");
+        AnsiConsole.MarkupLine($"{gold}FAy(0)+(-{FFY})({legnthAB})+({FFE})({legnthAB + legnthBC})+(FDY)({legnthAB + legnthBC + legnthCD})= 0[/]");
         double fDY = ((FFY * legnthAB) + (FFE * (legnthAB + legnthBC))) / (legnthAB + legnthBC + legnthCD);
         fDY = Math.Round(fDY, 1);
         double fAY = topPoints - fDY;
@@ -290,7 +292,7 @@ new SelectionPrompt<string>()
 .PageSize(10)
 .MoreChoicesText("[grey]()overflow[/]")
 .AddChoices(new[] {
-            "Reprint", " Save to File","Exit",
+            "Reprint", "Save","Exit",
 
 }));
 
@@ -299,16 +301,16 @@ new SelectionPrompt<string>()
             var Reprint = true;
             while (Reprint)
             {
-                AnsiConsole.MarkupLine($"FA,X = 0 Lb [/]");
+                AnsiConsole.MarkupLine($"{gold}FA,X = 0 Lb [/]");
                 AnsiConsole.MarkupLine($"{gold}FD,Y = {fDY} Lb[/]");//yellow
                 AnsiConsole.MarkupLine($"{gold}FA,Y + FD,Y = {topPoints}[/]");
-                AnsiConsole.MarkupLine($"{gold} FA,Y= {fAY} Lb\n[/]");
-                AnsiConsole.MarkupLine($"{gold}FAF = {FAF} Lb)\n[/]");
-                AnsiConsole.MarkupLine($"{gold}FAB = {FAB} Lb)\n[/]");
-                AnsiConsole.MarkupLine($"{gold}FED = {FFe} Lb)\n[/]");
-                AnsiConsole.MarkupLine($"{gold}FFB = {FFB} Lb)\n[/]");
-                AnsiConsole.MarkupLine($"{gold}FBE = {FBE} Lb)\n[/]");
-                AnsiConsole.MarkupLine($"{gold}FED = {FED} Lb)\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FA,Y= {fAY} Lb[/]");
+                AnsiConsole.MarkupLine($"{gold}FAF = {FAF} Lb)[/]");
+                AnsiConsole.MarkupLine($"{gold}FAB = {FAB} Lb)[/]");
+                AnsiConsole.MarkupLine($"{gold}FED = {FFe} Lb)[/]");
+                AnsiConsole.MarkupLine($"{gold}FFB = {FFB} Lb)[/]");
+                AnsiConsole.MarkupLine($"{gold}FBE = {FBE} Lb)[/]");
+                AnsiConsole.MarkupLine($"{gold}FED = {FED} Lb)[/]");
                 AnsiConsole.MarkupLine($"{gold}FCD = {fCD} Lb)[/]");
                 AnsiConsole.MarkupLine($"{gold}FBC = {FBC} Lb)[/]");
 
@@ -319,7 +321,7 @@ new SelectionPrompt<string>()
        .PageSize(10)
        .MoreChoicesText("[grey]()overflow[/]")
        .AddChoices(new[] {
-            "Reprint", " Save to File","Exit",
+            "Reprint", "Save","Exit",
 
        }));
                 if (choice3 == "Reprint")
@@ -335,9 +337,9 @@ new SelectionPrompt<string>()
 
 
         }
-        else if (choice2 == "Save to File")
+        else if (choice2 == "Save")
         {
-            Console.WriteLine("SAVING TO FILE");
+            AnsiConsole.MarkupLine($"{orange} saved to file[/]");
         }
         else if (choice2 == "Exit")
         {
@@ -348,6 +350,8 @@ new SelectionPrompt<string>()
 
     else if (choice1 == "Angle")
     {
+        Console.Clear();
+      
         var opposite = AnsiConsole.Ask<double>($"{gold} Enter opposite \t[/]");
         var adjacent = AnsiConsole.Ask<double>($"{gold} enter the adjacent\t[/]");
 
