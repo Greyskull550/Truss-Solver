@@ -1,11 +1,11 @@
 ﻿// welcome to the truss solver 
 
-using System.Threading.Channels;
-using Truss_Solver;
 using Spectre.Console;
-using System.Diagnostics.Tracing;
+using Truss_Solver;
+
 var green = "[#11634F]";
 var gold = "[#F9CF2F]";
+var orange = "[#Ffa500]";
 
 var running = true;
 Console.WriteLine("*************************************************************************************");
@@ -14,22 +14,25 @@ Console.WriteLine("*************************************************************
 AnsiConsole.MarkupLine($"{gold}Arra Solver V.0.1 [/]");
 
 while (running)
-{  
-    var choice = AnsiConsole.Prompt(
+{
+    var choice1 = AnsiConsole.Prompt(
      new SelectionPrompt<string>()
          .Title("[#11634F]Select a Function[/]?")
          .PageSize(10)
-         .MoreChoicesText("[grey](this is accualy never going to be seen idk why this code is in here but it makes the app work i will figure out how to use this when i want to)[/]")
+         .MoreChoicesText("[grey]()overflow[/]")
          .AddChoices(new[] {
             "5 Member", "9 Member", "Angle", "Credits","Exit",
 
          }));
 
-    if (choice == "5 Member")
+    if (choice1 == "5 Member")
     {
+        Console.Clear();
+        AnsiConsole.MarkupLine($"{orange} 5 member truss");
+
         // get variables 
-                // I am using a Spectre function that will prompt for input and valadate the responce. 
-        
+        // I am using a Spectre function that will prompt for input and valadate the responce. 
+
         var topPoint = AnsiConsole.Ask<double>($"{gold}Enter force on Top Point:[/]");
 
         var legnthAB = AnsiConsole.Ask<double>($"{gold}Enter Legnth AB: [/]");
@@ -41,7 +44,7 @@ while (running)
         var legnthBD = AnsiConsole.Ask<double>($"{gold}Enter Legnth BD: [/]");
 
         var legnthCD = AnsiConsole.Ask<double>($"{gold}Enter Legnth CD: [/]");
-        
+
         var angleA = AnsiConsole.Ask<double>($"{gold}Enter Angle a:  [/]");
         double angleARad = RadConvert.ConvertToRad(angleA);
 
@@ -58,7 +61,7 @@ while (running)
         AnsiConsole.MarkupLine($"{green}Solving for External Forces[/]");
         AnsiConsole.MarkupLine($"{gold}FA,X = 0 Lb [/]");
         AnsiConsole.MarkupLine($"{green}FAy(0)+(-{topPoint})({legnthAC})+FDy({legnthAC + legnthCD})[/]");
-       
+
         double fDY = (topPoint * legnthAC) / (legnthAC + legnthCD);
         fDY = Math.Round(fDY, 1);
         double fAY = topPoint - fDY;
@@ -82,57 +85,114 @@ while (running)
 
         AnsiConsole.MarkupLine($"{gold}FAC = {fAC} Lb)[/]\n");
 
-       AnsiConsole.MarkupLine($"{green}FBD pt C[/]");
+        AnsiConsole.MarkupLine($"{green}FBD pt C[/]");
         double fCD = fAC;
         double fCB = 0;
-            
+
         AnsiConsole.MarkupLine($"{gold}FCD = {fCD}[/]");
         AnsiConsole.MarkupLine($"{gold}FCB = {fCB}[/]");
-        
+
         AnsiConsole.MarkupLine($"{green}FBD pt D[/]");
 
         double fDB = -fCD / Math.Cos(angleBRad);
         fDB = Math.Round(fDB, 1);
-       
+
         AnsiConsole.MarkupLine($"{gold}FDB = {fDB} [/]");
-      
+
+        var choice2 = AnsiConsole.Prompt(
+    new SelectionPrompt<string>()
+        .Title("[#11634F]Select a Function[/]?")
+        .PageSize(10)
+        .MoreChoicesText("[grey]()overflow[/]")
+        .AddChoices(new[] {
+            "Reprint", " Save to File","Exit",
+
+        }));
+
+        if (choice2 == "Reprint")
+        {
+            var Reprint = true;
+            while (Reprint)
+            {
+                AnsiConsole.MarkupLine($"Reprinting results");
+                AnsiConsole.MarkupLine($"{gold} FD,Y = {fDY} Lb [/]");
+                AnsiConsole.MarkupLine($"{gold} FD,Y = b\n[/]");
+                AnsiConsole.MarkupLine($"{green} Internal Forces\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FAB = {fAB} Lb)\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FAC = {fAC} Lb[/]\n");
+                AnsiConsole.MarkupLine($"{gold}FCD = {fCD}[/]");
+                AnsiConsole.MarkupLine($"{gold}FCB = {fCB}[/]");
+                AnsiConsole.MarkupLine($"{gold}FDB = {fDB} [/]");
+
+                var choice3 = AnsiConsole.Prompt(
+   new SelectionPrompt<string>()
+       .Title("[#11634F]Select a Function[/]?")
+       .PageSize(10)
+       .MoreChoicesText("[grey]()overflow[/]")
+       .AddChoices(new[] {
+            "Reprint", " Save to File","Exit",
+
+       }));
+                if (choice3 == "Reprint")
+                {
+                    Reprint = true;
+                }
+                else if (choice3 == "Exit")
+                {
+                    Reprint = false;
+                }
+
+            }
+
+
+        }
+        else if (choice2 == "Save to File")
+        {
+            Console.WriteLine("SAVING TO FILE");
+        }
+        else if (choice2 == "Exit")
+        {
+            Console.Clear();
+        }
 
     }
-    else if (choice == "9 Member")              
+
+
+    else if (choice1 == "9 Member")
     {
 
         // get variables  
-       
+
         var FFY = AnsiConsole.Ask<double>($"{gold}Enter Force on FFY \t[/]");
 
         var FFE = AnsiConsole.Ask<double>($"{gold}Enter Force on FFE \t[/]");
         double topPoints = FFY + FFE;
 
         var legnthAB = AnsiConsole.Ask<double>($"{gold}Enter legnthAB \t[/]");
-        
+
         var legnthAF = AnsiConsole.Ask<double>($"{gold} Enter legnthAF \t[/]");
-     
+
         var legnthBC = AnsiConsole.Ask<double>($"{gold} Enter legnthBC \t[/]");
 
         var legnthFB = AnsiConsole.Ask<double>($"{gold} Enter legnthFB \t[/]");
-        
+
         var legnthCD = AnsiConsole.Ask<double>($"{gold} Enter legnthCD \t[/]");
-        
+
         var legnthBE = AnsiConsole.Ask<double>($"{gold} Enter legnthBE \t[/]");
-     
+
         var legnthED = AnsiConsole.Ask<double>($"{gold} Enter legnthED \t[/]");
 
         var legnthFE = AnsiConsole.Ask<double>($"{gold} Enter legnthFE \t[/]");
-       
 
 
-        var angleA =  AnsiConsole.Ask<double>($"{gold} Enter angleA \t[/]");
+
+        var angleA = AnsiConsole.Ask<double>($"{gold} Enter angleA \t[/]");
         double angleARad = RadConvert.ConvertToRad(angleA);
 
         var angleB = AnsiConsole.Ask<double>($"{gold} Enter angleB \t[/]");
 
         double angleBRad = RadConvert.ConvertToRad(angleB);
-        double angleBCalc = (90 + angleB) * -1;       
+        double angleBCalc = (90 + angleB) * -1;
         double angleBCalcRad = RadConvert.ConvertToRad(angleBCalc);
 
 
@@ -141,9 +201,9 @@ while (running)
 
 
         var angleD = AnsiConsole.Ask<double>($"{gold} Enter angleD \t[/]");
-       
+
         var angleE = AnsiConsole.Ask<double>($"{gold} Enter angleE \t[/]");
-        
+
 
 
         var angleF = AnsiConsole.Ask<double>($"{gold} Enter angleF \t[/]");
@@ -153,29 +213,29 @@ while (running)
         Thread.Sleep(5000);
 
 
-        AnsiConsole.MarkupLine ($"{green}Solving for External Forces[/]");
+        AnsiConsole.MarkupLine($"{green}Solving for External Forces[/]");
         AnsiConsole.MarkupLine($"FA,X = 0 Lb [/]");
         AnsiConsole.MarkupLine($"FAy(0)+(-{FFY})({legnthAB})+({FFE})({legnthAB + legnthBC})+(FDY)({legnthAB + legnthBC + legnthCD})= 0");
         double fDY = ((FFY * legnthAB) + (FFE * (legnthAB + legnthBC))) / (legnthAB + legnthBC + legnthCD);
         fDY = Math.Round(fDY, 1);
         double fAY = topPoints - fDY;
 
-     
+
         AnsiConsole.MarkupLine($"{gold}FD,Y = {fDY} Lb[/]");//yellow
 
         AnsiConsole.MarkupLine($"{gold}FA,Y + FD,Y = {topPoints}[/]");
 
         AnsiConsole.MarkupLine($"{gold} FA,Y= {fAY} Lb\n[/]");
-  
+
         AnsiConsole.MarkupLine($"{green}Solving Internal Forces\n[/]");
 
         //Console.WriteLine("Fbd pt.A");
         //Console.WriteLine($"{fAY} + FA,B * Sin({angleA}) = 0");
         double FAF = (fAY * -1) / Math.Sin(angleARad);
         FAF = Math.Round(FAF, 1);
-    
+
         AnsiConsole.MarkupLine($"{gold}FAF = {FAF} Lb)\n[/]");
-      
+
 
         // Calculate FAB
         double FAB = -FAF * Math.Cos(angleARad);
@@ -197,58 +257,160 @@ while (running)
 
 
         AnsiConsole.MarkupLine($"{gold}FFB = {FFB} Lb)\n[/]");
-     
+
 
         //calcuate fbe
         double FBE = -FFB / Math.Sin(angleCRad);
         FBE = Math.Round(FBE, 1);
 
         AnsiConsole.MarkupLine($"{gold}FBE = {FBE} Lb)\n[/]");
-        
+
 
         double FED = (fDY * -1) / Math.Sin(angleFRad);
         FED = Math.Round(FED, 1);
 
         AnsiConsole.MarkupLine($"{gold}FED = {FED} Lb)\n[/]");
-      
+
 
         // Calculate FCD
         double fCD = -FED * Math.Cos(angleFRad);
         fCD = Math.Round(fCD, 1);
 
         AnsiConsole.MarkupLine($"{gold}FCD = {fCD} Lb)[/]");
- 
+
 
         //FBC 
         double FBC = fCD;
 
         AnsiConsole.MarkupLine($"{gold}FBC = {FBC} Lb)[/]");
 
+        var choice2 = AnsiConsole.Prompt(
+new SelectionPrompt<string>()
+.Title("[#11634F]Select a Function[/]?")
+.PageSize(10)
+.MoreChoicesText("[grey]()overflow[/]")
+.AddChoices(new[] {
+            "Reprint", " Save to File","Exit",
+
+}));
+
+        if (choice2 == "Reprint")
+        {
+            var Reprint = true;
+            while (Reprint)
+            {
+                AnsiConsole.MarkupLine($"FA,X = 0 Lb [/]");
+                AnsiConsole.MarkupLine($"{gold}FD,Y = {fDY} Lb[/]");//yellow
+                AnsiConsole.MarkupLine($"{gold}FA,Y + FD,Y = {topPoints}[/]");
+                AnsiConsole.MarkupLine($"{gold} FA,Y= {fAY} Lb\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FAF = {FAF} Lb)\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FAB = {FAB} Lb)\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FED = {FFe} Lb)\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FFB = {FFB} Lb)\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FBE = {FBE} Lb)\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FED = {FED} Lb)\n[/]");
+                AnsiConsole.MarkupLine($"{gold}FCD = {fCD} Lb)[/]");
+                AnsiConsole.MarkupLine($"{gold}FBC = {FBC} Lb)[/]");
+
+
+                var choice3 = AnsiConsole.Prompt(
+   new SelectionPrompt<string>()
+       .Title("[#11634F]Select a Function[/]?")
+       .PageSize(10)
+       .MoreChoicesText("[grey]()overflow[/]")
+       .AddChoices(new[] {
+            "Reprint", " Save to File","Exit",
+
+       }));
+                if (choice3 == "Reprint")
+                {
+                    Reprint = true;
+                }
+                else if (choice3 == "Exit")
+                {
+                    Reprint = false;
+                }
+
+            }
+
+
+        }
+        else if (choice2 == "Save to File")
+        {
+            Console.WriteLine("SAVING TO FILE");
+        }
+        else if (choice2 == "Exit")
+        {
+            Console.Clear();
+        }
 
     }
 
-    else if (choice == "Angle")
+    else if (choice1 == "Angle")
     {
-        //goofy bozo 
+        var opposite = AnsiConsole.Ask<double>($"{gold} Enter opposite \t[/]");
+        var adjacent = AnsiConsole.Ask<double>($"{gold} enter the adjacent\t[/]");
+
+        double Radians = Math.Atan(opposite / adjacent);
+        double Degrees = Radians * (180.0 / Math.PI);
+
+        var choice2 = AnsiConsole.Prompt(
+new SelectionPrompt<string>()
+.Title("[#11634F]Select a Function[/]?")
+.PageSize(10)
+.MoreChoicesText("[grey]()overflow[/]")
+.AddChoices(new[] {
+            "Reprint", " Save to File","Exit",
+
+}));
+
+        if (choice2 == "Reprint")
+        {
+            var Reprint = true;
+            while (Reprint)
+            {
+
+                AnsiConsole.MarkupLine($"{gold}FBC = {Degrees} Lb)[/]");
+
+
+                var choice3 = AnsiConsole.Prompt(
+   new SelectionPrompt<string>()
+       .Title("[#11634F]Select a Function[/]?")
+       .PageSize(10)
+       .MoreChoicesText("[grey]()overflow[/]")
+       .AddChoices(new[] {
+            "Reprint", " Save to File","Exit",
+
+       }));
+                if (choice3 == "Reprint")
+                {
+                    Reprint = true;
+                }
+                else if (choice3 == "Exit")
+                {
+                    Reprint = false;
+                }
+            }
+        }
     }
-    else if (choice == "Credits")
+    else if (choice1 == "Credits")
     {
         Console.WriteLine("You must 'truss' this app ");
-        Console.WriteLine( "TrussSolver v0.2 pre Beta release");
-       
+        Console.WriteLine("TrussSolver v0.2 pre Beta release");
+
 
     }
-    else if (choice == "Exit")
+    else if (choice1 == "Exit")
     {
-        running = false; 
+        running = false;
     }
     else
     {
         Console.WriteLine("INVALID INPUT");
     }
-   
-    }
-    
-    
+
+}
+
+
 
 
